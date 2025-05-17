@@ -1,0 +1,126 @@
+{
+  "provider": "autogen_agentchat.teams.RoundRobinGroupChat",
+  "component_type": "team",
+  "version": 1,
+  "component_version": 1,
+  "description": "Two agents - CoderAgent and ReviewerAgent in a RoundRobinGroupChat team. ",
+  "label": "Dev Team",
+  "config": {
+    "participants": [
+      {
+        "provider": "autogen_agentchat.agents.AssistantAgent",
+        "component_type": "agent",
+        "version": 1,
+        "component_version": 1,
+        "description": "An agent that performs code writing tasks.",
+        "label": "CoderAgent",
+        "config": {
+          "name": "CoderAgent",
+          "model_client": {
+            "provider": "autogen_ext.models.openai.AzureOpenAIChatCompletionClient",
+            "component_type": "model",
+            "version": 1,
+            "component_version": 1,
+            "description": "GPT-4o Azure OpenAI model client.",
+            "label": "AzureOpenAI GPT-4o",
+            "config": {
+              "model": "gpt-4o",
+              "azure_endpoint": "https://<endpoint>.openai.azure.com/",
+              "azure_deployment": "gpt-4o",
+              "api_version": "2025-01-01-preview"
+            }
+          },
+          "tools": [],
+          "model_context": {
+            "provider": "autogen_core.model_context.UnboundedChatCompletionContext",
+            "component_type": "chat_completion_context",
+            "version": 1,
+            "component_version": 1,
+            "description": "An unbounded chat completion context that keeps a view of the all the messages.",
+            "label": "UnboundedChatCompletionContext",
+            "config": {}
+          },
+          "description": "An agent that provides assistance with ability to use tools.",
+          "system_message": "You are a proficient coder. You write code to solve problems.\n    Work with the reviewer to improve your code.\n    Always put all finished code in a single Markdown code block.\n    For example:\n        ```python\n        def hello_world():\n            print(\"Hello, World!\")\n        ```\n\n    Respond using the following format:\n\n    Thoughts: <Your comments>\n    Code: <Your code>",
+          "model_client_stream": false,
+          "reflect_on_tool_use": false,
+          "tool_call_summary_format": "{result}"
+        }
+      },
+      {
+        "provider": "autogen_agentchat.agents.AssistantAgent",
+        "component_type": "agent",
+        "version": 1,
+        "component_version": 1,
+        "description": "An agent that performs code review tasks.",
+        "label": "ReviewerAgent",
+        "config": {
+          "name": "ReviewerAgent",
+          "model_client": {
+            "provider": "autogen_ext.models.openai.AzureOpenAIChatCompletionClient",
+            "component_type": "model",
+            "version": 1,
+            "component_version": 1,
+            "description": "GPT-4o Azure OpenAI model client.",
+            "label": "AzureOpenAI GPT-4o",
+            "config": {
+              "model": "gpt-4o",
+              "azure_endpoint": "https://<endpoint>.openai.azure.com/",
+              "azure_deployment": "gpt-4o",
+              "api_version": "2025-01-01-preview"
+            }
+          },
+          "tools": [],
+          "model_context": {
+            "provider": "autogen_core.model_context.UnboundedChatCompletionContext",
+            "component_type": "chat_completion_context",
+            "version": 1,
+            "component_version": 1,
+            "description": "An unbounded chat completion context that keeps a view of the all the messages.",
+            "label": "UnboundedChatCompletionContext",
+            "config": {}
+          },
+          "description": "An agent that provides assistance with ability to use tools.",
+          "system_message": "You are a code reviewer. You focus on correctness, efficiency and safety of the code.\n    Respond using the following JSON format:\n    {\n        \"correctness\": \"<Your comments>\",\n        \"efficiency\": \"<Your comments>\",\n        \"safety\": \"<Your comments>\",\n        \"approval\": \"<APPROVE or REVISE>\",\n        \"suggested_changes\": \"<Your comments>\"\n    }",
+          "model_client_stream": false,
+          "reflect_on_tool_use": false,
+          "tool_call_summary_format": "{result}"
+        }
+      }
+    ],
+    "termination_condition": {
+      "provider": "autogen_agentchat.base.OrTerminationCondition",
+      "component_type": "termination",
+      "version": 1,
+      "component_version": 1,
+      "label": "OrTerminationCondition",
+      "config": {
+        "conditions": [
+          {
+            "provider": "autogen_agentchat.conditions.TextMentionTermination",
+            "component_type": "termination",
+            "version": 1,
+            "component_version": 1,
+            "description": "Terminate the conversation if a specific text is mentioned.",
+            "label": "TextMentionTermination",
+            "config": {
+              "text": "\"APPROVE\""
+            }
+          },
+          {
+            "provider": "autogen_agentchat.conditions.MaxMessageTermination",
+            "component_type": "termination",
+            "version": 1,
+            "component_version": 1,
+            "description": "Terminate the conversation after a maximum number of messages have been exchanged.",
+            "label": "MaxMessageTermination",
+            "config": {
+              "max_messages": 10,
+              "include_agent_event": false
+            }
+          }
+        ]
+      }
+    }
+  }
+}
