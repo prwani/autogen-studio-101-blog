@@ -6,7 +6,7 @@
 [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#) is a low-code interface built to help you rapidly prototype AI agents, enhance them with tools, compose them into teams and interact with them to accomplish tasks. It is built on [AutoGen AgentChat](https://microsoft.github.io/autogen) - a high-level API for building multi-agent applications.
 
 
-In this 101 blog, we will build a simple multi-agent application completely on local machine - 
+In this 101 blog, we will build a simple multi-agent application completely on local machine (+ LLM gtom Azure OpenAI) - 
 1) design a multi-agent team with [Reflection](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/reflection.html) design pattern using [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#)
 2) deploy created team as an API endpoint 
 3) deploy created team in a chainlit web application   
