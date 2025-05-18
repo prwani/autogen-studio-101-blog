@@ -5,11 +5,11 @@
 
 [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#) is a low-code interface built to help you rapidly prototype AI agents, enhance them with tools, compose them into teams and interact with them to accomplish tasks. It is built on [AutoGen AgentChat](https://microsoft.github.io/autogen) - a high-level API for building multi-agent applications.
 
-
 In this 101 blog, we will build a simple multi-agent application completely on local machine (+ LLM from Azure OpenAI) - 
-1) design a multi-agent team with [Reflection](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/reflection.html) design pattern using [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#)
-2) deploy created team as an API endpoint 
-3) deploy created team in a streamlit web application   
+
+   - Step 1 - Design a multi-agent team with [Reflection](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/reflection.html) design pattern using [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#)  
+   - Step 2 - Deploy created team as an API endpoint  
+   - Step 3 - Deploy created team in a Streamlit web application    
 
 
 ## Key Features
@@ -88,7 +88,7 @@ export AZURE_OPENAI_API_KEY="<API_KEY>"
 autogenstudio ui --port 8081
 ```
 
-After it starts sucessfully, Open the URL (printed in the output messages e.g. http://127.0.0.1:8081/build/) in your browser.
+After it starts successfully, open the URL (printed in the output messages, e.g., http://127.0.0.1:8081/build/) in your browser.
 
 ## Step 1 - Design a multi-agent team with [Reflection](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/reflection.html) design pattern using [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#)
 
@@ -198,10 +198,10 @@ After it starts sucessfully, Open the URL (printed in the output messages e.g. h
       <source src="Step12_recording.mp4" type="video/mp4">
     </video>
 
-13. With multi-agent team functioning as expected, 
+13. Once the multi-agent team is functioning as expected:  
     a. Download the team definition by clicking on the "Download Team" icon (the first icon before the "Run" button).  
     b. Once the download is complete, rename the file to `dev-team-config.json`.  
-    c. For reference, here is a sample file [dev-team-config.json](dev-team-config.json)
+    c. For reference, here is a sample file: [dev-team-config.json](dev-team-config.json)
 
 
 ## Step 2 - Deploy created team as an API endpoint 
@@ -219,37 +219,38 @@ export AZURE_OPENAI_API_KEY="<API_KEY>"
 autogenstudio serve --team ./dev-team-config.json --port 8084
 ```
 
-2. Official AutoGen Studio [documentation](https://autogenstudio.example.com/docshttps://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html) doesn't include much details of defintions of these APIs. But, you can find that out by downloading "openapi" definition of this API. If the api is running on "http://127.0.0.1:8084", navigate to "http://127.0.0.1:8084/openapi.json". It shows that there is a "Predict" api which takes "Task" as input string. 
+2. The official AutoGen Studio [documentation](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html) doesn't include many details about the definitions of these APIs. However, you can find that out by downloading the "openapi" definition of this API. If the API is running on "http://127.0.0.1:8084", navigate to "http://127.0.0.1:8084/openapi.json". It shows that there is a "Predict" API which takes "Task" as an input string. 
 
 3. Here is a [sample API client code](autogen-api-client.py).
 
 ## Step 3 - Deploy created team in a streamlit web application 
 
-1. Create a streamlit application that takes user-input and invokes AutoGen Team with task = user's input message. Here is a [sample streamlit app](streamlit-app.py).
+1. Create a Streamlit application that takes user input and invokes the AutoGen Team with `task = user's input message`. Here is a [sample Streamlit app](streamlit-app.py).
 
-2. Start streamlit app to test multi-agent team
+2. Start the Streamlit app to test the multi-agent team.
 
 ```sh
+
 # On Windows (PowerShell)
 $env:AZURE_OPENAI_API_KEY="<API_KEY>"
 # On Linux or macOS (bash/zsh)
 export AZURE_OPENAI_API_KEY="<API_KEY>"
 
-# Start streamlit Web UI
+# Start Streamlit Web UI
 streamlit run streamlit-app.py
 ```
+> **Security Tip:**
+> Do not commit your actual API keys to public repositories. Use environment variables or secret management tools to keep your credentials safe.
 3. Here is a short demo of the experience.
     <video width="480" controls>
-      <source src="streamlit_recording.mp4" type="video/mp4">
+      <source src="streamlit_recording.mp4" type="video/mp4">
     </video>
 
 ## Resources & Further Reading
 
-- [Official Documentation](https://autogenstudio.example.com/docshttps://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html)
-
+- [Official Documentation](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html)
 - [GitHub Repository](https://github.com/microsoft/autogen/tree/main/python/packages/autogen-studio)
 
 ## Conclusion
 
-
-[AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#) makes multi-Agent application development accessible and efficient. Start experimenting today and unlock new possibilities for your projects!
+[AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#) makes multi-agent application development accessible and efficient. Start experimenting today and unlock new possibilities for your projects!
