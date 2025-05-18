@@ -9,7 +9,7 @@
 In this 101 blog, we will build a simple multi-agent application completely on local machine (+ LLM from Azure OpenAI) - 
 1) design a multi-agent team with [Reflection](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/reflection.html) design pattern using [AutoGen Studio](https://microsoft.github.io/autogen/stable/user-guide/autogenstudio-user-guide/index.html#)
 2) deploy created team as an API endpoint 
-3) deploy created team in a chainlit web application   
+3) deploy created team in a streamlit web application   
 
 
 ## Key Features
@@ -223,7 +223,7 @@ autogenstudio serve --team ./dev-team-config.json --port 8084
 
 3. Here is a [sample API client code](autogen-api-client.py).
 
-## Step 3 - Deploy created team in a chainlit web application 
+## Step 3 - Deploy created team in a streamlit web application 
 
 1. Create a streamlit application that takes user-input and invokes AutoGen Team with task = user's input message. Here is a [sample streamlit app](streamlit-app.py).
 
